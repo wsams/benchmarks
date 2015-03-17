@@ -16,7 +16,7 @@ To run the benchmark suite, execute,
 
 Benchmarking is calculated using the Ruby `Benchmark` module.
 
-(http://ruby-doc.org/stdlib-1.9.3/libdoc/benchmark/rdoc/Benchmark.html)[http://ruby-doc.org/stdlib-1.9.3/libdoc/benchmark/rdoc/Benchmark.html]
+http://ruby-doc.org/stdlib-1.9.3/libdoc/benchmark/rdoc/Benchmark.html
 
 Benchmarks example usage
 ========================
