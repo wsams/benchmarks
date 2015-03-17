@@ -1,7 +1,7 @@
 require 'benchmark'
 
 # Configuration
-test_php = true
+test_php = TRUE
 test_javascript = TRUE
 test_ruby = TRUE
 test_java = TRUE
