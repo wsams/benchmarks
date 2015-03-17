@@ -31,16 +31,16 @@ Create a `Benchmarks` instance
 
 Create a `tests` hash. It should include a message and a command at a minimum.
 
-        tests = {
-            :test_one => {
-                :message => "Let's test the ls command",
-                :command => "ls"
-            },
-            :another_test => {
-                :message => "Grep for 'asdf'",
-                :command => "grep asdf *"
-            }
+    tests = {
+        :test_one => {
+            :message => "Let's test the ls command",
+            :command => "ls"
+        },
+        :another_test => {
+            :message => "Grep for 'asdf'",
+            :command => "grep asdf *"
         }
+    }
 
 Run each command 10 times.
 
