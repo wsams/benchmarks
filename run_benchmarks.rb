@@ -1,128 +1,95 @@
-require 'benchmark'
+require './benchmarks.rb'
 
-# Configuration
-test_php = TRUE
-test_javascript = TRUE
-test_ruby = TRUE
-test_java = TRUE
+benchmarks = Benchmarks.new
+benchmarks.test_php = TRUE
+benchmarks.test_javascript = TRUE
+benchmarks.test_ruby = TRUE
+benchmarks.test_java = TRUE
+benchmarks.colored_output = TRUE
 
-green = "38;05;28"
-orange = "38;05;196"
-
-msg_math = "Testing simple math and trigonometric functions."
+msg_math = "Testing simple math and trigonometric functions.";
 msg_concat = "Testing concatenation within a loop."
 msg_random = "Testing random number generation."
 
-@colored_output = TRUE
-# Configuration End
+if benchmarks.test_php
+    tests = {
+        :math => {
+            :message => msg_math,
+            :command => "php php/math.php"
+        },
+        :concat => {
+            :message => msg_concat,
+            :command => "php php/concat.php"
+        },
+        :random => {
+            :message => msg_random,
+            :command => "php php/random.php"
+        }
+    }
 
-def print_colored_message(message, color="0")
-    if @colored_output
-        puts "\n\e[#{color}m#{message}\e[0m\n"
-    else
-        puts "\n#{message}\n"
-    end
+    benchmarks.print_colored_message("Testing PHP with version " + %x(php -version), benchmarks.orange);
+    benchmarks.run_tests(tests)
 end
 
-if test_php
-    print_colored_message("Testing PHP with version " + %x(php -version), orange);
-
-    print_colored_message(msg_math, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(php php/math.php)
-        end
+if benchmarks.test_javascript
+    tests = {
+        :math => {
+            :message => msg_math,
+            :command => "node js/math.js"
+        },
+        :concat => {
+            :message => msg_concat,
+            :command => "node js/concat.js"
+        },
+        :random => {
+            :message => msg_random,
+            :command => "node js/random.js"
+        }
     }
 
-    print_colored_message(msg_concat, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(php php/concat.php)
-        end
-    }
-
-    print_colored_message(msg_random, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(php php/random.php)
-        end
-    }
+    benchmarks.print_colored_message("Testing JavaScript with Node.js version " + %x(node --version), benchmarks.orange);
+    benchmarks.run_tests(tests)
 end
 
-if test_javascript
-    print_colored_message("Testing JavaScript with Node.js version " + %x(node --version), orange);
-
-    print_colored_message(msg_math, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(node js/math.js)
-        end
+if benchmarks.test_ruby
+    tests = {
+        :math => {
+            :message => msg_math,
+            :command => "ruby ruby/math.rb"
+        },
+        :concat => {
+            :message => msg_concat,
+            :command => "ruby ruby/concat.rb"
+        },
+        :random => {
+            :message => msg_random,
+            :command => "ruby ruby/random.rb"
+        }
     }
 
-    print_colored_message(msg_concat, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(node js/concat.js)
-        end
-    }
-
-    print_colored_message(msg_random, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(node js/random.js)
-        end
-    }
+    benchmarks.print_colored_message("Testing Ruby with version " + %x(ruby --version), benchmarks.orange);
+    benchmarks.run_tests(tests)
 end
 
-if test_ruby
-    print_colored_message("Testing Ruby with version " + %x(ruby --version), orange);
-
-    print_colored_message(msg_math, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(ruby ruby/math.rb)
-        end
+if benchmarks.test_java
+    tests = {
+        :math => {
+            :message => msg_math,
+            :setup_command => "javac java/MathTest.java",
+            :command => "java -cp java MathTest"
+        },
+        :concat => {
+            :message => msg_concat,
+            :setup_command => "javac java/Concat.java",
+            :command => "java -cp java Concat"
+        },
+        :random => {
+            :message => msg_random,
+            :setup_command => "javac java/RandomTest.java",
+            :command => "java -cp java RandomTest"
+        }
     }
 
-    print_colored_message(msg_concat, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(ruby ruby/concat.rb)
-        end
-    }
-
-    print_colored_message(msg_random, green)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(ruby ruby/random.rb)
-        end
-    }
-end
-
-if test_java
-    puts "\n\e[38;05;196mTesting Java with version " + %x(java -version) + "\e[0m\n"
-
-    print_colored_message(msg_math, green)
-    %x(javac java/MathTest.java)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(java -cp java MathTest)
-        end
-    }
-
-    print_colored_message(msg_concat, green)
-    %x(javac java/Concat.java)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(java -cp java Concat)
-        end
-    }
-
-    print_colored_message(msg_random, green)
-    %x(javac java/RandomTest.java)
-    puts Benchmark.measure {
-        10.times do |x|
-            %x(java -cp java RandomTest)
-        end
-    }
+    benchmarks.print_colored_message("Testing Java with version " + %x(java -version), benchmarks.orange);
+    benchmarks.run_tests(tests)
 end
