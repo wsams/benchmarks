@@ -10,6 +10,7 @@ benchmarks.colored_output = TRUE
 msg_math = "Testing simple math and trigonometric functions.";
 msg_concat = "Testing concatenation within a loop."
 msg_random = "Testing random number generation."
+msg_file = "Testing file writing."
 
 if benchmarks.test_php
     tests = {
@@ -24,6 +25,10 @@ if benchmarks.test_php
         :random => {
             :message => msg_random,
             :command => "php php/random.php"
+        },
+        :file => {
+            :message => msg_file,
+            :command => "php js/file.php"
         }
     }
 
@@ -44,6 +49,10 @@ if benchmarks.test_javascript
         :random => {
             :message => msg_random,
             :command => "node js/random.js"
+        },
+        :file => {
+            :message => msg_file,
+            :command => "node js/file.js"
         }
     }
 
@@ -64,6 +73,10 @@ if benchmarks.test_ruby
         :random => {
             :message => msg_random,
             :command => "ruby ruby/random.rb"
+        },
+        :file => {
+            :message => msg_file,
+            :command => "ruby ruby/file.rb"
         }
     }
 
@@ -87,6 +100,11 @@ if benchmarks.test_java
             :message => msg_random,
             :setup_command => "javac java/RandomTest.java",
             :command => "java -cp java RandomTest"
+        },
+        :file => {
+            :message => msg_file,
+            :setup_command => "javac java/FileTest.java",
+            :command => "java -cp java FileTest"
         }
     }
 
