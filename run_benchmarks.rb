@@ -11,6 +11,8 @@ msg_math = "Testing simple math and trigonometric functions.";
 msg_concat = "Testing concatenation within a loop."
 msg_random = "Testing random number generation."
 msg_file = "Testing file writing."
+msg_indexof_native = "Testing native indexOf."
+msg_indexof_custom = "Testing custom indexOf."
 
 if benchmarks.test_php
     tests = {
@@ -53,6 +55,14 @@ if benchmarks.test_javascript
         :file => {
             :message => msg_file,
             :command => "node js/file.js"
+        },
+        :indexofnative => {
+            :message => msg_indexof_native,
+            :command => "node js/indexof-native.js"
+        },
+        :indexofcustom => {
+            :message => msg_indexof_custom,
+            :command => "node js/indexof-custom.js"
         }
     }
 
